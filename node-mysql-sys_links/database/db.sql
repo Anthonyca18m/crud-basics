@@ -1,0 +1,20 @@
+CREATE DATABASE node_mysql;
+
+USE node_mysql;
+
+CREATE TABLE users (
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(16) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
+    fullname VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE links (
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    link VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    user_id INT(11),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
