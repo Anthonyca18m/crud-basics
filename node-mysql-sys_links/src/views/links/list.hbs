@@ -1,0 +1,19 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each links }}
+            <div class="col-sm-3">
+                <div class="card text-center">
+                    <a href="{{link}}">
+                        <h3 class="card-title text-uppercase p-2"> {{ title }} </h3>
+                    </a>
+                    <p class="m-2">{{description}}</p>
+                    <p class="float-right"> {{timeago created_at}} </p>
+                    <p>
+                        <a href="" class="btn btn-danger">Delete</a>
+                        <a href="" class="btn btn-info">Edit</a>
+                    </p>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
