@@ -7,7 +7,16 @@ router.get('/add', (req, res) => {
     res.render('links/add');
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', async (req, res) => {
+    const { title, link, description } = req.body;
+    const newLink = { 
+        title, 
+        link, 
+        description 
+    };
+
+    await pool.query('INSERT INTO links SET ?', [newLink]);
+
     res.send('received');
 });
 
