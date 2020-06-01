@@ -2,7 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const exphnbs = require('express-handlebars');
 const path = require('path');
-
+const flash = require('connect-flash');
+const session = require('express-session');
+const sessionMysql = require('express-mysql-session');
+const {database} = require('./keys');
 
 //initializations
 const app = express();
@@ -23,13 +26,20 @@ app.engine('.hbs', exphnbs({
 app.set('view engine', '.hbs');
 
 //Middlewares
+app.use(session({
+    secret: 'tomsillo7gxxg7',
+    resave: false,
+    saveUninitialized: false,
+    store: new sessionMysql(database)
+}));
+app.use(flash());// para enviar mns entre vistas
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 //Global Variables
 app.use((req, res, next) => {
-    
+    app.locals.success = req.flash('success');
     next();
 });
 
