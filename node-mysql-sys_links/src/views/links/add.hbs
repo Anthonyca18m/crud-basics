@@ -6,7 +6,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="/links/add" method="POST">
+                    <form action="/links/add" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="">Title:</label>
                             <input type="text" name="title" placeholder="title" class="form-control" autofocus>
@@ -18,6 +18,10 @@
                         <div class="form-group">
                             <label for="">Description:</label>
                             <textarea name="description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">IMG:</label>
+                            <input type="file" name="imagen" accept="image/.jpg,.jpeg,.png">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-block">Save</button>

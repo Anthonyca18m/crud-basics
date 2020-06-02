@@ -1,6 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const {isLogoutIn} = require('../lib/auth');
+const multer  = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'src/public/assets/img/')
+    },
+    filename: function (req, file, cb) {
+        const ext = file.mimetype.split('/');
+        const extension = ext[1];
+      cb(null, file.fieldname + '-' + Date.now() + '.' + extension)
+    }
+  })
+
+const upload = multer({ 
+    storage
+ })
 
 const pool = require('../database');
 
@@ -8,12 +23,18 @@ router.get('/add', isLogoutIn, (req, res) => {
     res.render('links/add');
 });
 
-router.post('/add', isLogoutIn,  async (req, res) => {
+router.post('/add', isLogoutIn, upload.single('imagen'),  async (req, res) => {
     const { title, link, description } = req.body;
+    
+    const ext = req.file.mimetype.split('/');
+    const extension = ext[1];
+    const imagen = './assets/img/' + req.file.filename
+  
     const newLink = { 
         title, 
         link, 
         description,
+        img: imagen,
         user_id : req.user.id 
     };
 
