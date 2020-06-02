@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const {isLogoutIn} = require('../lib/auth');
 
 const pool = require('../database');
 
-router.get('/add', (req, res) => {
+router.get('/add', isLogoutIn, (req, res) => {
     res.render('links/add');
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', isLogoutIn,  async (req, res) => {
     const { title, link, description } = req.body;
     const newLink = { 
         title, 
         link, 
-        description 
+        description,
+        user_id : req.user.id 
     };
 
     await pool.query('INSERT INTO links SET ?', [newLink]);
@@ -20,26 +22,26 @@ router.post('/add', async (req, res) => {
     res.redirect('/links');
 });
 
-router.get('/', async (req, res) => {
-    const links = await pool.query('SELECT * FROM links');
+router.get('/', isLogoutIn,  async (req, res) => {
+    const links = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
     res.render('links/list', {links});
 });
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:id', isLogoutIn,  async (req, res) => {
     const {id} = req.params;
     await pool.query('DELETE FROM links WHERE id = ?', [id]);
     req.flash('success', 'Link remove correctly');
     res.redirect('/links');
 });
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', isLogoutIn,  async (req, res) => {
     const {id} = req.params;
     const detail = await pool.query('SELECT * FROM links WHERE id = ?', [id]);
 
     res.render('links/edit', {detail: detail[0]});
 });
 
-router.post('/edit/:id', async (req, res) => {
+router.post('/edit/:id', isLogoutIn,  async (req, res) => {
     const {id} = req.params;
     const { title, description, link } = req.body;
     const updateLink = { title, description, link };
