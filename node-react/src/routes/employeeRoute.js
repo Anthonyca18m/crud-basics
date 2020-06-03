@@ -12,6 +12,6 @@ router.get('/save', (req, res) => {
 router.get('/test',employeeController.test);
 router.get('/testdata',employeeController.testdata );
 router.get('/list',employeeController.list );
-
+router.post('/create',employeeController.create);
 
 module.exports = router;

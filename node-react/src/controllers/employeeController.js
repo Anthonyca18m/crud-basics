@@ -32,17 +32,52 @@ controller.testdata = async (req, res) => {
 
 controller.list = async (req, res) => {
 
-  const data = await Employee.findAll();
-  res.json(data)
+  const data = await Employee.findAll({
+    include: [ Role ]
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error => {
+    return error;
+  }); 
+
+  res.json({success : true, data : data});
 
 }
+controller.create = async (req,res) => {
+  // data
+  const { name, email, address, phone, role } = req.body;
+  // create
+  const data = await Employee.create({
+    name: name,
+    email: email,
+    address: address,
+    phone: phone,
+    roleId: role
+  })
+  .then(function(data){
+    return data;
+  })
+  .catch(error =>{
+    console.log("Errorazo "+error)
+    return error;
+  })
+  // return res
+  res.status(200).json({
+    success: true,
+    message:"Guardo exitosamente",
+    data: data
+  });
 
+  
+}
 //Create role
 // Role.create({
 //   role:  'Admin'
 // });
 
-// // create employee
+// create employee
 // Employee.create({
 //   name: 'Malena Morgan',
 //   email:  'malena@mail.com',

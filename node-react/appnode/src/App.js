@@ -3,8 +3,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-
+import axios from 'axios';
 import Form from './module/form';
 import List from './module/list';
 import Edit from './module/form';
