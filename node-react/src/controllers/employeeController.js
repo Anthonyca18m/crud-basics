@@ -38,17 +38,17 @@ controller.list = async (req, res) => {
 }
 
 //Create role
-Role.create({
-  role:  'Admin'
-});
+// Role.create({
+//   role:  'Admin'
+// });
 
-// create employee
-Employee.create({
-  name: 'Malena Morgan',
-  email:  'malena@mail.com',
-  address: 'California Cll 108',
-  phone: '123456789',
-  roleId:1
-});
+// // create employee
+// Employee.create({
+//   name: 'Malena Morgan',
+//   email:  'malena@mail.com',
+//   address: 'California Cll 108',
+//   phone: '123456789',
+//   roleId:1
+// });
 
 module.exports = controller;
