@@ -35,6 +35,7 @@ app.use(session({
     saveUninitialized: false,
     store: new sessionMysql(database)
 }));
+
 app.use(flash());// para enviar mns entre vistas
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
