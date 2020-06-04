@@ -11,15 +11,16 @@ const Departments = require('./models/departments');
 const Provinces = require('./models/provinces');
 const Districts = require('./models/districts');
 
-if (sequelize.authenticate()) {
-    console.log('connect');
-    Countries.sync();
-    Departments.sync();
-    Provinces.sync();
-    Districts.sync();
-} else {
-    console.log('not connect');
-}
+// if (sequelize.authenticate()) {
+//     console.log('connect');
+//     Countries.sync();
+//     Departments.sync();
+//     Provinces.sync();
+//     Districts.sync();
+//     console.log('All Sync');
+// } else {
+//     console.log('not connect');
+// }
 
 
 //Inicializaciones
@@ -35,7 +36,17 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+// Access-Control-Allow-Origin: Para controlar quien puede consumir mi API
+// Access-Control-Allow-Headers: Para configurar los headers que acepta la API
+// Access-Control-Allow-Methods: Para declarar los métodos que acepta el API
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
 
 //Global Variables
 app.use((req, res, next) => {
