@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
-
+const x = require('./model/Employee');
+const y = require('./model/Role');
+const sequelize = require('./model/database');
 // importing routes
 const employeeRouters = require('./routes/employeeRoute');
 
@@ -10,7 +12,8 @@ app.set('port', process.env.PORT || 4000);
 //Middlewares
 app.use(express.json());
 
-
+x.sync();
+y.sync();
 // Access-Control-Allow-Origin: Para controlar quien puede consumir mi API
 // Access-Control-Allow-Headers: Para configurar los headers que acepta la API
 // Access-Control-Allow-Methods: Para declarar los métodos que acepta el API

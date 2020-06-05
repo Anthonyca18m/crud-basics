@@ -25,7 +25,7 @@ countryController.getAll = async (req, res) => {
 countryController.get = async (req, res) => {
 
     const data = await Countries.findAll({
-        where : req.params.id,
+        where : { id_countries: req.params.id},
         // include: [ ---- ]
     })
     .then( (response) => {

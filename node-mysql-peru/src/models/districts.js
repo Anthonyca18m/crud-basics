@@ -26,7 +26,10 @@ const Districts = District.init({
         // Other model options go here
         timestamps: false,
         sequelize, 
-        modelName: 'District'
+        modelName: 'Districts'
     });
+
+Provinces.hasMany(Districts, {as : 'Districts', foreignKey: 'provinces_id'});
+Districts.belongsTo(Provinces, {as : 'Provinces', foreignKey: 'provinces_id'});
 
 module.exports = Districts;

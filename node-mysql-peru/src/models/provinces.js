@@ -14,7 +14,7 @@ const Provinces = Province.init({
         type:DataTypes.STRING,
         allowNull: false
     },
-    deparments_id: {
+    departments_id: {
         type: DataTypes.STRING(6),
         // This is a reference to another model
         references: {
@@ -26,7 +26,11 @@ const Provinces = Province.init({
 {
     timestamps: false,
     sequelize, 
-    modelName: 'Province'
+    modelName: 'Provinces'
 });
+
+Departments.hasMany(Provinces, {as : 'Provinces', foreignKey: 'departments_id'});
+Provinces.belongsTo(Departments, {as : 'Departments', foreignKey: 'departments_id'});
+
 
 module.exports = Provinces;

@@ -10,7 +10,7 @@ const Departments = Department.init({
         primaryKey: true,
         autoIncrement: false,
     },
-    c_name: { 
+    d_name: { 
         type:DataTypes.STRING,
         allowNull: false
     },
@@ -26,7 +26,10 @@ const Departments = Department.init({
 {
     timestamps: false,
     sequelize, 
-    modelName: 'Department'
+    modelName: 'Departments'
 });
+
+Countries.hasMany(Departments, {as : 'Departments', foreignKey : 'countries_id'});
+Departments.belongsTo(Countries, {as : 'Countries', foreignKey : 'countries_id'});
 
 module.exports = Departments;

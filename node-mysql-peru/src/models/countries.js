@@ -18,7 +18,7 @@ const Countries = Country.init({
         // Other model options go here
         timestamps: false,
         sequelize, 
-        modelName: 'Country'
+        modelName: 'Countries'
     });
 
 module.exports = Countries;
